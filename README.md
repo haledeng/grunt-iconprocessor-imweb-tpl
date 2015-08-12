@@ -1,9 +1,10 @@
 # grunt-iconprocessor-imweb-tpl
 
 > extract all icon names from imweb-tpl files, and generate iconfont files according to these names.
-Generate folder structure below:
--outputDir
-  -fonts
+### Generate folder structure below:
+```
+outputDir
+  fonts
     -iconfont.eot
     -iconfont.svg
     -iconfont.ttf
@@ -12,6 +13,7 @@ Generate folder structure below:
   -iconfont-embedded.css
   -iconfont.css
   -iconfont.scss
+```
 
 
 ## Getting Started
