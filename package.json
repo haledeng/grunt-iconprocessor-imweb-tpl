@@ -1,6 +1,6 @@
 {
   "name": "grunt-iconprocessor-imweb-tpl",
-  "description": "extract all icon names from imweb-tpl files",
+  "description": "extract all icon names from imweb-tpl files(.html, .tpl)",
   "version": "0.1.0",
   "homepage": "",
   "author": {
@@ -37,5 +37,10 @@
   },
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "dependencies": {
+    "async": "^1.4.2",
+    "font-carrier": "0.0.5",
+    "underscore": "^1.8.3"
+  }
 }

@@ -1,6 +1,18 @@
 # grunt-iconprocessor-imweb-tpl
 
-> extract all icon names from imweb-tpl files
+> extract all icon names from imweb-tpl files, and generate iconfont files according to these names.
+Generate folder structure below:
+-outputDir
+  -fonts
+    -iconfont.eot
+    -iconfont.svg
+    -iconfont.ttf
+    -iconfont.woff
+  -demo.html
+  -iconfont-embedded.css
+  -iconfont.css
+  -iconfont.scss
+
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -28,55 +40,36 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+    src: [
+      // your html, tpl files
+    ],
+    // output directory
+    dest: 'output/'
   },
 });
 ```
 
 ### Options
 
-#### options.separator
+#### options.svgPath
 Type: `String`
-Default value: `',  '`
+Default: No
+This option must be configured.
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+A string value that is used to store your svg files.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  iconprocessor_imweb_tpl: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, the options are used to specify local svg folder is 'svgs/'.
 
 ```js
 grunt.initConfig({
   iconprocessor_imweb_tpl: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      svgPath: 'svgs/'
     },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'dest/outputDir/': ['src/**/*.html'],
     },
   },
 });
@@ -86,4 +79,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+* 2015-08-12  v0.1.0  Initial release.
+...

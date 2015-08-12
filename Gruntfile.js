@@ -30,22 +30,20 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     iconprocessor_imweb_tpl: {
-      default_options: {
+      icons: {
         options: {
+          svgDir: 'svgs/',
         },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+        src: ['test/fixtures/test.tpl', 'test/fixtures/test.html'],
+        dest: 'tmp/output/'
       }
+      // icons2: {
+      //   options: {
+      //   },
+      //   files: {
+      //     'tmp/icons2': ['test/fixtures/*.{html, tpl}']
+      //   }
+      // }
     },
 
     // Unit tests.
