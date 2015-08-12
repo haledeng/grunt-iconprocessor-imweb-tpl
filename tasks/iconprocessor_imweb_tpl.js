@@ -19,7 +19,7 @@ var win32 = process.platform === 'win32';
 module.exports = function(grunt) {
 
   // Can be followed by: letters (A-Za-z), digits (0-9), hyphens ("-"), and underscores ("_")
-  var iconReg = /i-[A-Za-z0-9\-\_]+/g;
+  var iconReg = /\bi-[A-Za-z0-9\-\_]+/g;
   var lineBreak = win32 ? '\r\n' : '\n';
   var svgTmp = '.svgtmp/';
 
@@ -43,12 +43,19 @@ module.exports = function(grunt) {
         return icon.replace(/i-/, '');
       });
     }
+    // if (icons.length) {
+    //   console.log('From ' + filepath + ' find icons:\n\t' + _.uniq(icons).join(','));
+    // }
     return icons = _.uniq(icons);
   }
 
   function extractSvgs(svgDir, icons) {
     icons.forEach(function(icon) {
       var svgPath = svgDir + '/' + icon + '.svg';
+      if (!grunt.file.exists(svgPath)) {
+        grunt.log.warn(icon + '.svg not found in svg floder.');
+        return false;
+      }
       var content = grunt.file.read(svgPath);
       var svgDest = svgTmp + icon + '.svg';
       grunt.file.write(svgDest, content);
@@ -78,6 +85,8 @@ module.exports = function(grunt) {
       var src = file.src.filter(isExist).map(extractIcons).forEach(function(item, index) {
         allicons = allicons.concat(item);
       });
+      // confirm single
+      allicons = _.uniq(allicons);
 
       if (!grunt.file.exists(outputDir)) {
         grunt.file.mkdir(outputDir);
@@ -88,8 +97,8 @@ module.exports = function(grunt) {
       grunt.file.delete(svgTmp);
       console.log(outputDir + ' dir iconfont generation finished.');
 
-      grunt.file.write('tmp/icons', allicons.join(lineBreak));
-      console.log('tmp/icons write finished.');
+      grunt.file.write(outputDir + '/icons', allicons.join(lineBreak));
+      console.log(outputDir + '/icons file write finished.');
 
     }, null);
 
