@@ -41,22 +41,27 @@ grunt.initConfig({
   iconprocessor_imweb_tpl: {
     options: {
       // Task-specific options go here.
+      svgDir: 'svgs/',
+      outpurDir: 'output/'
     },
     src: [
       // your html, tpl files
-    ],
-    // output directory
-    dest: 'output/'
+    ]
   },
 });
 ```
 
 ### Options
 
-#### options.svgPath
+#### options.svgDir
 Type: `String`
 Default: No
 This option must be configured.
+
+#### options.outputDir
+Type: `String`
+Default: 'iconfont_output/'
+This option specific output folder.
 
 A string value that is used to store your svg files.
 
@@ -68,7 +73,8 @@ In this example, the options are used to specify local svg folder is 'svgs/'.
 grunt.initConfig({
   iconprocessor_imweb_tpl: {
     options: {
-      svgPath: 'svgs/'
+      svgPath: 'svgs/',
+      outputDir: 'output/'
     },
     files: {
       'dest/outputDir/': ['src/**/*.html'],
@@ -82,4 +88,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * 2015-08-12  v0.1.0  Initial release.
-...
+* 2015-08-13  v0.1.1  fix regexp and some other bugs and speed up execute time.
