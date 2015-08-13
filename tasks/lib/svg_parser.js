@@ -17,27 +17,18 @@ var config = {
 
 var svgCnt = 4095; // \ffff
 
-function generateFonts(svgPath, output){
-    var files = fs.readdirSync(svgPath),
-        iconContent,
-        iconNames = [],
+function generateFonts(iconNames, output){
+    var svgPath = config.svgPath;
+    var iconContent,
         iconContents = [],
         svgsObj = {};
-    files.forEach(function(file, index){
-        if(path.extname(file) == '.svg'){
-            iconContent = generateIconContent(svgCnt--);
-            iconNames.push(path.basename(file, '.svg'));
-            iconContents.push(iconContent);
-            svgsObj[iconContent] = fs.readFileSync(path.join(svgPath, file)).toString();
-        }
+    iconNames.forEach(function(iconName) {
+        var filepath = svgPath + iconName + '.svg';
+        iconContent = generateIconContent(svgCnt--);
+        iconContents.push(iconContent);
+        svgsObj[iconContent] = fs.readFileSync(filepath).toString();
     });
     font.setSvg(svgsObj);
-
-    // output 目录不存在
-    if(!fs.existsSync(output)){
-        fs.mkdirSync(output);
-    }
-
     // 导出字体
     var fontContent = font.output({
         path: path.join(output, config.fontName)
@@ -45,7 +36,6 @@ function generateFonts(svgPath, output){
 
     return  {
         fontContent: fontContent,
-        iconNames: iconNames,
         iconContents: iconContents
     }
 }
@@ -124,14 +114,15 @@ function generateBase64Css(iconNames, iconContents, output, fontContent){
 // 导出接口
 // svgPath : svg 路径
 // output : 产出目录
-function parse(svgPath, output){
+function parse(svgPath, output, iconNames){
     if(!fs.existsSync(output)){
         fs.mkdirSync(output);
     }
-    var results = generateFonts(svgPath, path.join(output, config.fontDir))
-    generateScss(results.iconNames, results.iconContents, output);
-    generateDemo(results.iconNames, output);
-    generateBase64Css(results.iconNames, results.iconContents, output, results.fontContent);
+    config.svgPath = svgPath;
+    var results = generateFonts(iconNames, path.join(output, config.fontDir));
+    generateScss(iconNames, results.iconContents, output);
+    generateDemo(iconNames, output);
+    generateBase64Css(iconNames, results.iconContents, output, results.fontContent);
     return results;
 }   
 

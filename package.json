@@ -40,7 +40,6 @@
   ],
   "dependencies": {
     "async": "^1.4.2",
-    "font-carrier": "0.0.5",
-    "underscore": "^1.8.3"
+    "font-carrier": "0.0.5"
   }
 }
